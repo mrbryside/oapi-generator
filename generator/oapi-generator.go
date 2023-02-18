@@ -9,7 +9,7 @@ import (
 func Execute() {
 	// Define a flag for the directory name
 	var dirName string
-	flag.StringVar(&dirName, "dir", "", "the name of the directory to create")
+	flag.StringVar(&dirName, "dir", "", "the name of the directory to create jaaa")
 
 	// Parse the command-line arguments
 	flag.Parse()
