@@ -97,7 +97,7 @@ func generateServer(name, genPath, specPath string) error {
 	}
 
 	// Generate the DTO files using oapi-gen
-	dtoCmd := exec.Command("./oapi-gen", "-generate", "types", "-o", fmt.Sprintf("%s/oapi/%sdto/%sdto.go", genPath, name, name), "-package", fmt.Sprintf("%sdto", name), fmt.Sprintf("%s/%s.yaml", specPath, name))
+	dtoCmd := exec.Command("oapi-codegen", "-generate", "types", "-o", fmt.Sprintf("%s/oapi/%sdto/%sdto.go", genPath, name, name), "-package", fmt.Sprintf("%sdto", name), fmt.Sprintf("%s/%s.yaml", specPath, name))
 	dtoCmd.Dir = "./"
 	_, err = dtoCmd.CombinedOutput()
 	if err != nil {
@@ -106,8 +106,7 @@ func generateServer(name, genPath, specPath string) error {
 	}
 
 	// Generate the service files using oapi-gen and the temporary config file
-	srvCmd := exec.Command("./oapi-gen", "--config", serverCfgPath, "-package", fmt.Sprintf("%ssrv", name), "-o", fmt.Sprintf("%s/oapi/%ssrv/%ssrv.go", genPath, name, name), fmt.Sprintf("%s/%s.yaml", specPath, name))
-	srvCmd.Dir = "./"
+	srvCmd := exec.Command("oapi-codegen", "--config", serverCfgPath, "-package", fmt.Sprintf("%ssrv", name), "-o", fmt.Sprintf("%s/oapi/%ssrv/%ssrv.go", genPath, name, name), fmt.Sprintf("%s/%s.yaml", specPath, name))
 	_, err = srvCmd.CombinedOutput()
 	if err != nil {
 		os.Remove(serverCfgPath)
