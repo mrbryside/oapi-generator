@@ -56,7 +56,7 @@ var generateCmd = &cobra.Command{
 		genCmd := exec.Command("make", "generate-server", fmt.Sprintf("name=%s", name), fmt.Sprintf("genPath=%s", config["gen-dir"]), fmt.Sprintf("specPath=%s", config["spec-dir"]))
 		_, err = genCmd.CombinedOutput()
 		if err != nil {
-			return fmt.Errorf("error running generate hey: %v", err.Error())
+			return fmt.Errorf("error running generate: %v", err)
 		}
 		fmt.Println("generated")
 		return nil
