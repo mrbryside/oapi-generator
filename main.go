@@ -1,9 +1,7 @@
 package main
 
-import (
-	"github.com/mrbryside/oapi-generator/generator"
-)
+import "github.com/mrbryside/oapi-generator/cmd"
 
 func main() {
-	generator.Execute()
+	cmd.Execute()
 }
