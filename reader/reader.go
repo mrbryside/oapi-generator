@@ -10,7 +10,7 @@ func ReadConfig() map[string]*string {
 	// Parse the YAML data into a map[string]interface{} object
 	// Read the contents of the YAML file into a byte slice
 	var config map[string]*string
-	data, err := ioutil.ReadFile("oapi-cfg.yaml")
+	data, err := ioutil.ReadFile("oapiconfig.yaml")
 	if err != nil {
 		fmt.Errorf("failed to read YAML file: %v", err)
 	}
@@ -20,7 +20,7 @@ func ReadConfig() map[string]*string {
 		fmt.Errorf("failed to parse YAML data: %v", err)
 	}
 	if config["spec-dir"] == nil || config["gen-dir"] == nil {
-		fmt.Errorf("error oapi-cfg.yaml is wrong")
+		fmt.Errorf("error oapiconfig.yaml is wrong")
 	}
 	return config
 }

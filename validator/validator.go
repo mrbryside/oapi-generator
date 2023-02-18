@@ -7,7 +7,7 @@ import (
 
 func Config(name string, config map[string]*string) string {
 	// Check config
-	yamlFile := "oapi-cfg.yaml"
+	yamlFile := "oapiconfig.yaml"
 	if _, err := os.Stat(yamlFile); os.IsNotExist(err) {
 		return fmt.Sprintf("%s does not exist", yamlFile)
 	}

@@ -12,11 +12,11 @@ go install github.com/mrbryside/oapi-generator
 ```
 
 
-## Create your oapi-cfg.yaml (configuration file)
-After create oapi-cfg.yaml in project directory add the content below
+## Create your oapiconfig.yaml (configuration file)
+After create oapiconfig.yaml in project directory add the content below
 
 ```bash
-#oapi-cfg.yaml
+#oapiconfig.yaml
 gen-dir: your/generated/output/path #generated output path
 spec-dir: your/spec/openapi/path #spec open-api path
 ```
