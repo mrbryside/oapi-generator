@@ -48,16 +48,15 @@ var generateCmd = &cobra.Command{
 		}
 
 		// Run the command "go run main.go init"
-		runCmd := exec.Command("go", "run", "main.go", "init")
-		_, err = runCmd.CombinedOutput()
+		err = createFolder()
 		if err != nil {
-			return fmt.Errorf("error running go run main.go init: %v", err)
+			return fmt.Errorf("error running init folder: %v", err)
 		}
 
 		genCmd := exec.Command("make", "generate-server", fmt.Sprintf("name=%s", name), fmt.Sprintf("genPath=%s", config["gen-dir"]), fmt.Sprintf("specPath=%s", config["spec-dir"]))
 		_, err = genCmd.CombinedOutput()
 		if err != nil {
-			return fmt.Errorf("error running go run main.go init: %v", err)
+			return fmt.Errorf("error running generate: %v", err)
 		}
 		fmt.Println("generated")
 		return nil
