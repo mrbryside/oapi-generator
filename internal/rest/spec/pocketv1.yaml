@@ -1,0 +1,118 @@
+openapi: 3.0.0
+
+info:
+  title: pocket app OAS
+  description: OpenApi specification for a pocket api
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/
+
+components:
+  schemas:
+    PocketCreateRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          x-oapi-codegen-extra-tags:
+            validate: required
+        income_amount:
+          type: number
+          format: float
+        expense_amount:
+          type: number
+          format: float
+      required:
+        - name
+        - income_amount
+        - expense_amount
+    PocketCreateResponse:
+      type: object
+      x-kubernetes-group-version-kind: None
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          x-oapi-codegen-extra-tags:
+            validate: required
+        income_amount:
+          type: number
+          format: float
+        expense_amount:
+          type: number
+          format: float
+        balance:
+          type: number
+          format: float
+      required:
+        - id
+        - name
+        - income_amount
+        - expense_amount
+        - balance
+    GetPocketsResponseArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/PocketCreateResponse'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+        - code
+        - message
+
+paths:
+  /pockets:
+    post:
+      description: Creates a new pocket
+      operationId: createPocket
+      requestBody:
+        description: pocket to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PocketCreateRequest'
+      responses:
+        '201':
+          description: Pocket creation response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PocketCreateResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      description: get pockets
+      operationId: getPockets
+#      parameters:
+#        - name: userId
+#          in: query
+#          schema:
+#            type: integer
+#            default: 1
+      responses:
+        '201':
+          description: Pockets array response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPocketsResponseArray'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

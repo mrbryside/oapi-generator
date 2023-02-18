@@ -1,0 +1,7 @@
+package: #name
+#additional-imports:
+#  - package: github.com/mrbryside/pocket-service/internal/generated/oapi/#name
+#    alias: .
+generate:
+  echo-server: true
+  embedded-spec: true
