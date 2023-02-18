@@ -26,7 +26,7 @@ create spec folder
 ```bash
 mkdir your/spec/openapi/path/spec
 ```
-create server.cfg.yaml file content below
+create server.cfg.yaml file content below you can decide to use additional-imports
 ```bash
 package: #name
 #additional-imports:
