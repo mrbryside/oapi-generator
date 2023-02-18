@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"bufio"
 	"fmt"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
@@ -53,10 +54,40 @@ var generateCmd = &cobra.Command{
 			return fmt.Errorf("error running init folder: %v", err)
 		}
 
+		//genCmd := exec.Command("make", "generate-server", fmt.Sprintf("name=%s", name), fmt.Sprintf("genPath=%s", config["gen-dir"]), fmt.Sprintf("specPath=%s", config["spec-dir"]))
+		//_, err = genCmd.CombinedOutput()
+		//if err != nil {
+		//	return fmt.Errorf("error running generate: %v", err)
+		//}
 		genCmd := exec.Command("make", "generate-server", fmt.Sprintf("name=%s", name), fmt.Sprintf("genPath=%s", config["gen-dir"]), fmt.Sprintf("specPath=%s", config["spec-dir"]))
-		_, err = genCmd.CombinedOutput()
-		if err != nil {
-			return fmt.Errorf("error running generate: %v", err)
+
+		// Create pipes to capture the command's stdout and stderr
+		stdoutPipe, _ := genCmd.StdoutPipe()
+		stderrPipe, _ := genCmd.StderrPipe()
+
+		// Start the command
+		if err := genCmd.Start(); err != nil {
+			return fmt.Errorf("error starting generate command: %v", err)
+		}
+
+		// Read the stdout and stderr output from the pipes in separate goroutines
+		go func() {
+			scanner := bufio.NewScanner(stdoutPipe)
+			for scanner.Scan() {
+				fmt.Println(scanner.Text())
+			}
+		}()
+
+		go func() {
+			scanner := bufio.NewScanner(stderrPipe)
+			for scanner.Scan() {
+				fmt.Println(scanner.Text())
+			}
+		}()
+
+		// Wait for the command to finish and check the error status
+		if err := genCmd.Wait(); err != nil {
+			return fmt.Errorf("error running generate command: %v", err)
 		}
 		fmt.Println("generated")
 		return nil
