@@ -45,7 +45,7 @@ func GenerateServer(name, genPath, specPath string) error {
 	}
 
 	// Generate the DTO files using oapi-gen
-	dtoCmd := exec.Command("oapi-codegen", "-generate", "types", "-o", fmt.Sprintf("%s/oapi/%sdto/%sdto.go", genPath, name, name), "-package", fmt.Sprintf("%sdto", name), "--generate-types-ignore-required", fmt.Sprintf("%s/%s.yaml", specPath, name))
+	dtoCmd := exec.Command("oapi-codegen", "-generate", "types", "-o", fmt.Sprintf("%s/oapi/%sdto/%sdto.go", genPath, name, name), "-package", fmt.Sprintf("%sdto", name), "--generate-types-pointer=false", fmt.Sprintf("%s/%s.yaml", specPath, name))
 	dtoCmd.Dir = "./"
 	_, err = dtoCmd.CombinedOutput()
 	if err != nil {
