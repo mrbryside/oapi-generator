@@ -54,7 +54,7 @@ func GenerateServer(name, genPath, specPath string) error {
 	}
 
 	// Generate the service files using oapi-gen and the temporary config file
-	srvCmd := exec.Command("oapi-codegen", "--config", serverCfgPath, "-package", fmt.Sprintf("%ssrv", name), "-o", fmt.Sprintf("%s/oapi/%ssrv/%ssrv.go", genPath, name, name), fmt.Sprintf("%s/%s.yaml", specPath, name))
+	srvCmd := exec.Command("oapi-codegen", "--config", serverCfgPath, "-package", fmt.Sprintf("%ssrv", name), "-o", fmt.Sprintf("%s/oapi/%ssrv/%ssrv.go", genPath, name, name), "--generate-types-ignore-required", fmt.Sprintf("%s/%s.yaml", specPath, name))
 	_, err = srvCmd.CombinedOutput()
 	if err != nil {
 		os.Remove(serverCfgPath)
