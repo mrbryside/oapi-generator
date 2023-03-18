@@ -35,7 +35,7 @@ var generateCmd = &cobra.Command{
 		if err != nil {
 			fmt.Printf("error generating server files: %v", err)
 		}
-		fmt.Println("Generate server successfully!!")
+		fmt.Println("Generate server successfully, enjoy!!")
 		return nil
 	}}
 
