@@ -69,4 +69,3 @@ func GenerateServer(name, genPath, specPath string) error {
 
 	return nil
 }
-}
