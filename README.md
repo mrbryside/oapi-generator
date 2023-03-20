@@ -7,7 +7,7 @@ oapi-generator is a command-line tool that generates Go code from an OpenAPI spe
 Use the go package install the oapi-codegen and oapi-generator 
 
 ```bash
-go install https://github.com/deepmap/oapi-codegen
+go install github.com/deepmap/oapi-codegen
 go install github.com/mrbryside/oapi-generator
 ```
 
